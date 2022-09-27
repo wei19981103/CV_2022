@@ -25,6 +25,22 @@ plt.subplot(2, 3, 4)
 plt.bar(list(range(0,256)), hist_original, width = 0.5, edgecolor = 'black')
 plt.xticks(list(range(0,256,50)))
 
+#intensity divided by 3 and its histogram
+dvd3_img = np.zeros([height, width], np.uint8)
+for i in range(height):
+    for j in range(width):
+        dvd3_img[i][j] = round(image[i][j] / 3)
+
+hist_dvd3 = draw_hist(dvd3_img)
+
+plt.subplot(2, 3, 2)
+plt.imshow(dvd3_img, cmap='gray', vmin = 0, vmax = 255)
+plt.title("Divided by 3")
+plt.xticks([]), plt.yticks([])
+
+plt.subplot(2, 3, 5)
+plt.bar(list(range(0,256)), hist_dvd3, width = 0.5, edgecolor = 'black')
+plt.xticks(list(range(0,256,50)))
 plt.show()
 
 cv2.waitKey(0)
