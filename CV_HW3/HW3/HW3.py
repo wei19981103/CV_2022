@@ -41,6 +41,33 @@ plt.xticks([]), plt.yticks([])
 plt.subplot(2, 3, 5)
 plt.bar(list(range(0,256)), hist_dvd3, width = 0.5, edgecolor = 'black')
 plt.xticks(list(range(0,256,50)))
+
+#histogram equalization
+img_equ = np.zeros([height, width], np.uint8)
+new_pixelvalue = []
+for i in range(256):
+    new_pixelvalue.append([i])
+cdf = 0
+for k in range(len(hist_dvd3)):
+    for j in range(k+1):
+        cdf += hist_dvd3[j] / (height * width)
+    new_pixelvalue[k] = round(255 * cdf)
+    cdf = 0
+for i in range(height):
+    for j in range(width):
+        img_equ[i][j] = new_pixelvalue[dvd3_img[i][j]]
+
+hist_equ = draw_hist(img_equ)
+
+plt.subplot(2, 3, 3)
+plt.imshow(img_equ, cmap='gray', vmin = 0, vmax = 255)
+plt.title("Histogram Equalization")
+plt.xticks([]), plt.yticks([])
+
+plt.subplot(2, 3, 6)
+plt.bar(list(range(0,256)), hist_equ, width = 0.5, edgecolor = 'black')
+plt.xticks(list(range(0,256,50)))
+
 plt.show()
 
 cv2.waitKey(0)
