@@ -27,6 +27,7 @@ plt.xticks(list(range(0,256,50)))
 
 #intensity divided by 3 and its histogram
 dvd3_img = np.zeros([height, width], np.uint8)
+
 for i in range(height):
     for j in range(width):
         dvd3_img[i][j] = round(image[i][j] / 3)
@@ -45,13 +46,14 @@ plt.xticks(list(range(0,256,50)))
 #histogram equalization
 img_equ = np.zeros([height, width], np.uint8)
 new_pixelvalue = []
+
 for i in range(256):
     new_pixelvalue.append([i])
 cdf = 0
 for k in range(len(hist_dvd3)):
     for j in range(k+1):
         cdf += hist_dvd3[j] / (height * width)
-    new_pixelvalue[k] = round(255 * cdf)
+    new_pixelvalue[k] = round(255 * cdf) #list[original_pixelvalue] = new_pixelvalue
     cdf = 0
 for i in range(height):
     for j in range(width):
