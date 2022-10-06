@@ -7,6 +7,7 @@ import numpy as np
 image = cv2.imread('.\\lena.bmp', cv2.IMREAD_GRAYSCALE)
 height, width = image.shape
 ret, img = cv2.threshold(image, 127, 255, cv2.THRESH_BINARY)
+
 kernel = [[-2, -1], [-2, 0], [-2, 1],
 [-1, -2], [-1, -1], [-1, 0], [-1, 1], [-1, 2],
 [0, -2],  [0, -1], [0, 0], [0, 1], [0, 2],
@@ -51,7 +52,7 @@ def hit_and_miss(img, se1, se2):
     result_img1 = erosion(img, se1)
     for i in range(height):
         for j in range(width):
-                result_img2[i][j] = (img[i][j] - 255) * (-1)
+                result_img2[i][j] = 255 - img[i][j]
     result_img2 = erosion(result_img2, se2)
     for i in range(height):
         for j in range(width):
